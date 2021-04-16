@@ -54,8 +54,75 @@ p1 = Point1(x=10, y=35)
 p2 = Point2(20, 40)
 p3 = Point3(45, y=20)
 p4 = Point4(10, 20, 30, 40) # rename=True 값이 알아서 겹치지 않는 이름으로 바꿔준다. 
-p5 = Point3(**temp_dict) # 얓ㅅ 형태를 키로 쓸려면 앞에 ** 을 붙여야함 
+p5 = Point3(**temp_dict) # dict 형태를 키로 쓸려면 앞에 ** 을 붙여야함 
 
+# 출력 
 print('EX2-2 -', p1, p2, p3, p4, p5)
 
+print()
+print()
 
+# 사용 
+print('EX3-1 -', p1[0]+p2[1]) # index error 주의
+print('EX3-2 -', p1.x+p2.y)  # 클래스 변수 접근 방식
+
+# Unpacking 
+x,y = p3
+
+print('EX3-3 -', x+y)
+
+# Rename 테스트 
+print('EX3-4 -', p4)
+
+# 네임드 튜플 메소드 
+
+temp = [52,38] 
+
+# _make() : 새로운 객체 생성 
+p4 = Point1._make(temp)
+
+print('EX4-1 -', p4)
+
+# _fields: 필드 네임 확인 
+print('EX4-2 -', p1._fields,p2._fields,p3._fields,p4._fields,p5._fields)
+
+# _asdict() : Dict 반환
+
+print('EX4-3 -', p1._asdict(),p2._asdict())
+
+# _replqce() : 수정 된 '새로운' 객체 반환 
+
+print('EX4-4 -', p2._replace(y=100))
+print(p2)  
+print()
+print()
+
+# 실 사용 실습 
+# 학생 전체 그룹 생성 
+# 반 20명, 4개의 반 -> (A,B,C,D) 번호 
+
+# 네임드 튜플 선언 
+Classes = namedtuple('Classes', ['rank', 'number'])
+
+# 그룹 리스트 선언 
+numbers = [str(n) for n in range(1,21)]
+ranks = 'A B C D'.split()
+print(ranks,numbers)
+
+# LIst comprehension 
+students = [Classes(rank,number) for rank in ranks for number in numbers]
+
+print('EX5-1 -',len(students))
+print('EX5-2 -',students)
+print(students[4].rank)
+
+# 가독성이 안 좋은 경우 
+students2 = [Classes(rank,number) for rank in 'A B C D'.split() for number in [str(n) for n in range(1,21)]]
+print(students2)
+
+print('EX6-1 -',len(students2))
+print('EX6-2 -',students2)
+
+# 출력 
+for s in students:
+    print('EX7-1 - ', s)
