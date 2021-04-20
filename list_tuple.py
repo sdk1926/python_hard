@@ -79,3 +79,79 @@ print('EX4-5 -', [id(i) for i in marks1])
 print('EX4-6 -', [id(i) for i in marks2])
 
 
+import array
+import resource
+
+startMem = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
+
+mylist = []
+for i in range(1,100000):
+    mylist.append(i)
+
+listMem = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
+
+myarray = array.array('i')
+for i in range(1,100000):
+    myarray.append(i)
+
+arrayMem = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
+
+print("list를 만드는 데는 :", listMem-startMem)
+print("array를 만드는 데는 : ", arrayMem-listMem)
+
+# Tuple advanced 
+
+# packing& Unpacking 
+
+print('EX5-1 -', divmod(100,9))
+print('EX5-2 -', divmod(*(100, 9)))
+print('EX5-3 -', *(divmod(100, 9)))
+
+x,y, *rest = range(10)
+print('EX5-4 -', x,y,rest)
+x,y, *rest = range(2)
+print('EX5-5 -', x,y,rest)
+x,y, *rest = 1, 2, 3, 4, 5
+print('EX5-6 -', x,y,rest)
+
+# Mutable(가변) vs Immutable(불변)
+
+l = (10, 15, 20)
+m = [10, 15, 20]
+
+print('EX6-1 -', l, m ,id(l), id(m)) 
+
+l = l * 2  # 연산가능
+m = m * 2
+
+print('EX6-2 -', l, m, id(l), id(m))  
+
+l *= 2 
+m *= 2
+
+print('EX6-3 -', l, m, id(l), id(m))  # 튜플만 메모리 주소가 바뀌었다. 
+
+# sort vs sorted 
+# reverse, key=len, key=str.lower, key=func
+
+f_list = ['orange', 'apple', 'mango', 'papaya', 'lemon', 'strawberry', 'coconut']
+
+# sorted : 정렬 후 '새로운' 객체 반환 
+
+print('EX7-1 -', sorted(f_list))
+print('EX7-2 -', sorted(f_list, reverse=True))  # 역순정렬
+print('EX7-3 -', sorted(f_list, key=len)) # 길이 순으로 정렬 
+print('EX7-4 -', sorted(f_list, key=lambda x:x[-1]))  # 끝 글자 순으로 정렬 
+print('EX7-5 -', sorted(f_list, key=lambda x:x[-1], reverse=True)) # 끝 글자 역순으로 정렬 
+print('EX7-6 -', sorted(f_list)) # 원본 안변경됨
+
+# sort : 정렬 후 객체 직접 변경
+# 반환 값 확인 None
+
+a = f_list.sort()
+# 원본이 변경되기 때문에 원본을 출력해야 값이 나옴 
+print('EX-7 -', f_list.sort(), f_list)
+print('EX-8 -', f_list.sort(reverse=True), f_list)
+print('EX-9 -', f_list.sort(key=len), f_list)
+print('EX-10 -', f_list.sort(key=lambda x:x[-1]), f_list)
+print('EX-11 -', f_list.sort(key=lambda x:x[-1], reverse=True), f_list)
