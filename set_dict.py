@@ -53,8 +53,12 @@ new_dict2 = {}
 for k,v in source:
     if k in new_dict1:
         new_dict1[k].append(v)
+        print(new_dict1[k])
+        print(v)
     else:
         new_dict1[k] = [v]
+        print(new_dict1[k])
+        print(v)
 
 print('EX3-1 -', new_dict1)
 
