@@ -161,3 +161,4 @@ from unicodedata import name
 print('EX7-1 -')
 
 print({name(chr(i), '') for i in range(0,256)})
+print({name(chr(i), '') for i in range(0,255)})
