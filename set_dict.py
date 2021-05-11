@@ -18,7 +18,7 @@ print('EX1-2 -', hash(t1))
 import csv
 
 # 외부 CSV TO List of tuple 
-with open('./python_hard/test1.csv', 'r', encoding='UTF-8') as f:
+with open('./test1.csv', 'r', encoding='UTF-8') as f:
     temp = csv.reader(f)
     # Header Skip 
     next(temp)
@@ -51,6 +51,7 @@ new_dict2 = {}
 
 # No use setdefault 
 for k,v in source:
+    print(k,v)
     if k in new_dict1:
         new_dict1[k].append(v)
         print(new_dict1[k])
@@ -160,5 +161,4 @@ from unicodedata import name
 
 print('EX7-1 -')
 
-print({name(chr(i), '') for i in range(0,256)})
 print({name(chr(i), '') for i in range(0,256)})
