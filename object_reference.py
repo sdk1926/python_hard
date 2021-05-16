@@ -105,6 +105,45 @@ print('EX5-3 -', basket1._products)
 print('EX5-4 -', basket2._products)  # 인스턴스 안에서 생기는 문제 
 print('EX5-5 -', basket3._products)
 
+# 함수 매개변수 전달 사용법
 
+def mul(x,y):
+    x += y
+    return x 
 
+x = 10 
+y = 5
+print('EX6-1 -', mul(x,y),x ,y)
+print()
 
+a = [10,100]
+b = [5,10]
+
+print('EX6-2 -', mul(a,b), a, b) #가변형 a -> 데이터 변경 
+
+c = (10,100)
+d = (5,10)
+
+print('EX6-3 -', mul(c,d), c, d ) # 불변형 c -> 원본 데이터 변경 안됨 
+
+# 파이썬 불변형 예외 
+# str, bytes, frozenset, Tuple : 사본 생성 X -> 참조 반환 
+# 복사시 주소값 동일 
+tt1 = (1,2,3,4,5)
+tt2 = tuple(tt1)
+tt3 = tt1[:]
+
+print('EX7-1 -', tt1 is tt2, id(tt1), id(tt2))
+print('EX7-2 -', tt3 is tt1, id(tt3), id(tt1))
+
+tt4 = (10,20,30,40,50)
+tt5 = (10,20,30,40,50)
+ss1 = 'Apple'
+ss2 = 'Apple'
+
+print('EX7-4 -', tt4 is tt5, tt4 == tt5, id(tt4), id(tt5))
+print('EX7-5 -', ss1 is ss2, ss1 == ss2, id(ss1), id(ss2))
+
+tt6  = (1,2,3,4,5)
+tt7 = (1,2,3,4,5)
+print(tt6 is tt7)
