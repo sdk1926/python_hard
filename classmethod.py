@@ -39,6 +39,7 @@ studt1 = Student('cho', 2 ,3, {'gender': 'Male', 'score1': 65, 'score2': 44})
 studt2 = Student('chang', 4 ,1, {'gender': 'Female', 'score1': 85, 'score2': 74}, 'stu2@naver.com')
 
 # 아이디 값이 다르다. 
+print(('*')*40)
 print(id(studt1))
 print(id(studt2))
 
