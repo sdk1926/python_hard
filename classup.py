@@ -71,4 +71,35 @@ def repeat_outer(obj):
     return repeat_inner
 
 print(min(timeit.repeat(repeat_outer(use_slot), number=1000000)))
-print(min(timeit.repeat(repeat_outer(no_slot), number=1000000)))#
+print(min(timeit.repeat(repeat_outer(no_slot), number=1000000)))
+
+# 객체 슬라이싱 
+
+class Objects:
+
+    def __init__(self):
+        self._numbers = [ n for n in range(1, 10000, 3)]
+
+    def __len__(self):
+        return len(self._numbers)
+
+    def __getitem__(self, idx):
+        return self._numbers[idx]
+
+s = Objects()
+print('EX3-1 -', s.__dict__)
+print('EX3-2 -', len(s))
+print('EX3-3 -', len(s._numbers))
+print('EX3-4 -', s[1:100])
+print('EX3-5 -', s[-1])
+print('EX3-6 -', s[::10])
+
+print()
+print()
+
+# 파이썬 추상클래스 
+# 개발과 관련된 공통된 내용(필드, 메소드) 추출 및 통합해서 공통된 내용으로 작성하게 하는 것 
+# 자체적으로 객체 생성 불가 
+# 상속을 통해서 자식 클래스에서 인스턴스를 생성해야 함 
+
+
