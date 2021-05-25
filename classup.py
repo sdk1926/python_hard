@@ -70,8 +70,8 @@ def repeat_outer(obj):
         del obj.a
     return repeat_inner
 
-print(min(timeit.repeat(repeat_outer(use_slot), number=1000000)))
-print(min(timeit.repeat(repeat_outer(no_slot), number=1000000)))
+# print(min(timeit.repeat(repeat_outer(use_slot), number=1000000)))
+# print(min(timeit.repeat(repeat_outer(no_slot), number=1000000)))
 
 # 객체 슬라이싱 
 
@@ -102,4 +102,48 @@ print()
 # 자체적으로 객체 생성 불가 
 # 상속을 통해서 자식 클래스에서 인스턴스를 생성해야 함 
 
+# Sequence 상속 받지 않았지만, 자동으로 __iter__, __contain__ 기능 작동 
+# 객체 전체를 자동으로 조사 -> 시퀀스 프로토콜 
 
+class IterTestA():
+
+    def __getitem__(self, idx):
+        return range(1, 50, 2)[idx] # range(1, 50, 2)
+
+i1 = IterTestA()
+print('EX4-1 -', i1[4])
+print('EX4-2 -', i1[4:10])
+print('EX4-3 -', 3 in i1[1:10])
+# print('EX4-4 -', [i for i in i1])
+
+print()
+print()
+
+# Sequence 상속 
+# 요구사항인 추상메소드를 모두 구현해야 동작 
+
+from collections.abc import Sequence
+
+class IterTestB(Sequence):
+
+    def __getitem__(self, idx):
+        return range(1, 50, 2)[idx] # range(1, 50, 2)
+
+    def __len__(self, idx):
+        return len(range(1, 50, 2)[idx])
+
+i2 = IterTestB()
+print('EX4-5 -', i2[4])
+print('EX4-6 -', i2[4:10])
+print('EX4-7 -', 3 in i2[1:10])
+
+# abc 활용 예제 
+import abc 
+
+class RandomMachine(abc.ABC):
+
+    # 추상 메소드 
+    @abc.abstractmethod
+    def load(self, iterobj):
+        '''Iterable 항목 추가'''
+        
