@@ -146,4 +146,54 @@ class RandomMachine(abc.ABC):
     @abc.abstractmethod
     def load(self, iterobj):
         '''Iterable 항목 추가'''
-        
+
+    # 추상 메소드
+    @abc.abstractmethod
+    def pick(self,iterobj):
+        '''무작위 항목 뽑기'''
+
+
+    def inspect(self):
+        items = []
+        while True:
+            try:
+                items.append(self.pick())
+            except LookupError:
+                break
+            return tuple(sorted(items))
+
+import random 
+
+class  CraneMachine(RandomMachine):
+
+    def __init__(self, items):
+        self._randomizer = random.SystemRandom()
+        self._items = []
+        self.load(items)
+
+    def load(self, items):
+        self._items.extend(items)
+        self._randomizer.shuffle(self._items)
+
+    def pick(self):
+        try:
+            return self._items.pop()
+        except IndexError:
+            raise LookupError('Empty Crane Box')
+
+    def __call__(self):
+        return self.pick()
+
+# 서브 클래스 확인 
+print('EX5-1 -', issubclass(RandomMachine, CraneMachine))
+print('EX5-2 -', issubclass(CraneMachine, RandomMachine))
+
+# 상속 구조 확인 
+print('EX5-1 -', CraneMachine.__mro__)
+
+cm = CraneMachine(range(1,46)) # 추상 메소드 구현 안하면 에러 
+
+print('EX5-4 -', cm._items)
+print('EX5-5 -', cm.pick())
+print('EX5-5 -', cm())
+print('EX5-4 -', cm.inspect())
