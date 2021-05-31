@@ -1,60 +1,25 @@
-class VectorP(object):
-    
-    def __init__(self,x,y):
-        self.__x = float(x)
-        self.__y = float(y)
 
-    def __iter__(self):
-        return(i for i in (self.__x,self.__y)) # Generator 
+def coroutine2(x):
+    print('>>> coroutine started : {}'.format(x))
+    y = yield x
+    print('>>> coroutine received : {}'.format(y))
+    z = yield x + y
+    print('>>> coroutine received : {}'.format(z))
 
-    @property
-    def x(self):
-        print('Called Property X Getter')
-        return self.__x 
 
-    @x.setter
-    def x(self, v):
-        print('Called Property X Setter')
-        self.__x = v 
+c3 = coroutine2(10)
 
-    @property
-    def y(self):
-        print('Called Property Y Getter')
-        return self.__y 
+from inspect import getgeneratorstate
 
-    @y.setter
-    def y(self, v):
-        print('Called Property Y Setter')
-        self.__y = v 
+print('EX1-2 -', getgeneratorstate(c3))
 
-v = VectorP(20,40)
-print('*'* 40)
-v.x = 'abcd'
-print('*'* 40)
-print(v.x)
-print('*'* 40)
-for val in v:
-    print('EX1-2 -', val)
-print(v.__dict__)
-v = VectorP(20,40)
-for val in v:
-    print('EX1-4 -', val)
+print(next(c3))
 
-class VectorPs(object):
-    
-    def __init__(self,x,y):
-        self._x = float(x)
-        self._y = float(y)
+print('EX1-3 -', getgeneratorstate(c3))
 
-    def __iter__(self):
-        return(i for i in (self._x,self._y)) # Generator 
+print(c3.send(15))
 
-v = VectorP(30,50)
-print('*'* 40)
-v._x = 'abcd'
-print('*'* 40)
-print(v._x)
-print('*'* 40)
-for val in v:
-    print('EX1-5 -', val)
-print(v.__dict__)
+#print(c3.send(20)) # 예외
+
+print()
+print()
