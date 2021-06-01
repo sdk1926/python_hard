@@ -153,7 +153,7 @@ avger2 =averager_re()
 next(avger2)
 
 avger2.send(10)
-avger2.send(30)
+avger2.send(20)
 avger2.send(50)
 
 
